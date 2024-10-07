@@ -25,6 +25,21 @@ const getVehiclesByDriver = async (req, res) => {
     }
 };
 
+// Atualizar veículo
+const updateVehicle = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const vehicleData = req.body;
+        const updatedVehicle = await vehicleService.updateVehicle(id, vehicleData);
+        if (!updatedVehicle) {
+            return res.status(404).json({ message: 'Veículo não encontrado' });
+        }
+        res.status(200).json(updatedVehicle);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 // Excluir veículo
 const deleteVehicle = async (req, res) => {
     try {
